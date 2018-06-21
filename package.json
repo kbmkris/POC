@@ -1,0 +1,51 @@
+{
+  "name": "hclpoc",
+  "version": "1.0.0",
+  "description": "HCL POC project",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm-run-all --parallel open:src lint:watch",
+    "open:src": "babel-node tools/srcServer.js",
+    "lint": "node_modules/.bin/esw webpack.config.* src tools",
+    "lint:watch": "npm run lint -- --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "jquery": "^3.3.1",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "react-router-redux": "^4.0.8",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-register": "^6.26.0",
+    "css-loader": "^0.28.11",
+    "eslint": "^4.19.1",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-react": "^7.9.1",
+    "eslint-watch": "^3.1.5",
+    "expect": "^23.1.0",
+    "express": "^4.16.3",
+    "npm-run-all": "^4.1.3",
+    "open": "0.0.5",
+    "path": "^0.12.7",
+    "redux-immutable-state-invariant": "^2.1.0",
+    "style-loader": "^0.21.0",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.12.0",
+    "webpack-dev-middleware": "^3.1.3",
+    "webpack-hot-middleware": "^2.22.2"
+  }
+}

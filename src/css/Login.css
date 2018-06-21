@@ -1,0 +1,65 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  font-family: Calibri, Serif;
+  font-size: 1em;
+}
+
+.login-div {
+  margin: auto;
+  width: 400px;
+  height: 220px;
+  border: 2px solid;
+  line-height: 2em;
+}
+
+.register-div {
+  margin: auto;
+  width: 400px;
+  height: 350px;
+  border: 2px solid;
+  line-height: 2em;
+}
+
+h3 {
+  margin: 0px;
+  background-color: grey;
+  width: 400px;
+  text-align: center;
+  line-height: 3em;
+}
+
+.label {
+  float: left;
+  width: 120px;
+  text-align: right;
+  vertical-align: center;
+}
+
+.input {
+  float: left;
+  margin: 5px;
+  width: 250px;
+  padding: 2px;
+}
+
+.button-div {
+  clear: both;
+  display: block;
+  width: 300px;
+  height: 50px;
+  text-align: center;
+  justify-content: center;
+}
+
+.button {
+  padding: 7px;
+  margin: 5px;
+  border-radius: 9px;
+  font-size: 1em;
+}
+
+p {
+  text-align: center;
+  color: red;
+}

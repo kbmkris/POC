@@ -1,0 +1,6 @@
+#output build folder
+dist
+
+#node modules
+
+node_modules

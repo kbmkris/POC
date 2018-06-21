@@ -1,0 +1,104 @@
+import React from 'react';
+import styles from '../../css/Login.css';
+
+const RegisterForm = ({
+  name,
+  sapId,
+  emailId,
+  primarySkill,
+  band,
+  password,
+  message,
+  handleOnChange,
+  handleOnClick
+}) => {
+  return (
+    <div className="register-div">
+      <h3> Register New User </h3>
+      <form>
+      <label
+        className="label"
+        htmlFor="name" >
+        Name :
+      </label>
+      <input
+        type="text"
+        className="input"
+        id="name"
+        value={name}
+        onChange={handleOnChange} />
+      <br />
+      <label
+        className="label"
+        htmlFor="sapId" >
+        Sap Id :
+      </label>
+      <input
+        type="text"
+        className="input"
+        id="sapId"
+        value={sapId}
+        onChange={handleOnChange} />
+      <br />
+      <label
+        className="label"
+        htmlFor="emailId" >
+        Email Id :
+      </label>
+      <input
+        type="email"
+        className="input"
+        id="emailId"
+        value={emailId}
+        onChange={handleOnChange} />
+      <br />
+      <label
+        className="label"
+        htmlFor="band" >
+        Band :
+      </label>
+      <input
+        type="text"
+        className="input"
+        id="band"
+        value={band}
+        onChange={handleOnChange} />
+      <br />
+      <label
+        className="label"
+        htmlFor="primarySkill" >
+        Primary Skill :
+      </label>
+      <input
+        type="text"
+        className="input"
+        id="primarySkill"
+        value={primarySkill}
+        onChange={handleOnChange} />
+      <br />
+      <label
+        className="label"
+        htmlFor="password" >
+        Password :
+      </label>
+      <input
+        type="password"
+        className="input"
+        id="password"
+        value={password}
+        onChange={handleOnChange} />
+      <br />
+      <div className="button-div">
+        <input
+          type="submit"
+          className="button"
+          value="Submit"
+          onClick={handleOnClick} />
+      </div>
+      </form>
+      <p>{message}</p>
+    </div>
+  );
+};
+
+export default RegisterForm;
