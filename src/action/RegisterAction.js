@@ -17,12 +17,12 @@ export function registerUser (userData) {
         userData1.status = response.status;
         userData1.message = response.message;
         if (response.status === 'success') {
-            userData1.message = userData1.message + ' Redirecting to Login page...';
+            userData1.message = userData1.message;
         }
         dispatch(registerUserSuccess(userData1));
-        if (response.status === 'success') {
-          setTimeout( () => {history.push('/loginUser');},2000);
-        }
+//        if (response.status === 'success') {
+//          setTimeout( () => {history.push('/loginUser');},2000);
+//        }
       }).catch(error => {
         throw(error);
       });

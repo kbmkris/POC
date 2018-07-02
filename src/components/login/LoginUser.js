@@ -1,13 +1,18 @@
 import React from 'react';
-import LoginForm from './LoginForm';
+import LoginUserForm from './LoginUserForm';
 import RegisterUser from './RegisterUser';
-import * as LoginActions from '../../action/LoginAction';
+import { toastr } from 'react-redux-toastr';
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
+import * as LoginAction from '../../action/LoginAction';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 
 class LoginUser extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
+      register: false,
       userData: {
         name: '',
         sapId: '',
@@ -20,6 +25,7 @@ class LoginUser extends React.Component {
         loggedIn: false
       }
     };
+
     this.handleOnChange = this.handleOnChange.bind(this);
     this.handleOnClickLogin = this.handleOnClickLogin.bind(this);
     this.handleOnClickRegister = this.handleOnClickRegister.bind(this);
@@ -27,7 +33,6 @@ class LoginUser extends React.Component {
   }
 
   componentWillMount() {
-    console.log('Inside component will mount' + this.props.userData.emailId);
     let userData = {
       name: '',
       sapId: '',
@@ -41,25 +46,27 @@ class LoginUser extends React.Component {
     };
     userData.emailId = this.props.userData.emailId === undefined ? '' :
       this.props.userData.emailId;
-    console.log(userData);
+    userData.loggedIn = this.props.userData.loggedIn;
     this.setState({userData: userData});
   }
 
-/*  componentDidUpdate(prevState) {
-    if (this.userData.status) {
-    if (prevState.userData.status !== this.userData.status) {
-      console.log('Previous state is ' + prevState.userData.status);
-      console.log('Current state is ' + this.userData.status);
+  componentDidUpdate(prevProps) {
+      console.log("Inside did update");
+    console.log(this.props);
+    console.log(prevProps);
+    if (this.props.userData.status) {
+      console.log(this.state.userData);
+      if (prevProps.userData.loggedIn !== this.props.userData.loggedIn) {
+        const { userData } = this.props;
+        const toastrOptions = { timeOut: 1000 };
+        if (this.props.userData.status === 'success') {
+          toastr.success(this.props.userData.message,toastrOptions);
+        } else {
+          toastr.error(this.props.userData.message);
+        }
+        this.setState({userData});
+      }
     }
-   }
-  }
-*/
-  componentDidMount() {
-    console.log('Component Mounted with status as ' + this.props.userData);
-  }
-
-  componentDidUpdate() {
-    console.log('In componentDidUpdate ' + this.props.userData.emailId);
   }
 
   handleOnChange(event) {
@@ -70,36 +77,43 @@ class LoginUser extends React.Component {
   }
 
   validateData() {
-    if (this.state.userData.emailId !== '' && this.state.userData.password) {
-      return true;
-    } else {
-      const userData = Object.assign({},this.state.userData);
-      userData.message = 'Enter User Name and Password to Login';
-      this.setState({userData});
-      return false;
+    let errorCount = 0;
+    if (this.state.userData.emailId === '') {
+      toastr.error("Enter a valid User Name");
+      errorCount++;
     }
+    if (this.state.userData.password === '') {
+      toastr.error("Enter a valid Password");
+      errorCount++;
+    }
+    return errorCount === 0 ? true : false;
   }
 
   handleOnClickLogin(event) {
     event.preventDefault();
-    console.log('Submitted');
     this.validateData() ?
-      this.props.dispatch(LoginActions.loginUser(this.state.userData))
+      this.props.dispatch(LoginAction.loginUser(this.state.userData))
       : '';
   }
 
   handleOnClickRegister(event) {
     event.preventDefault();
-    console.log("Clicked on Register link");
-    this.props.history.push("/registerUser");
+    this.setState({register: true});
   }
 
   render() {
+    if (this.state.register) {
+      return <Redirect push to="/registerUser" />;
+    }
+
+    if (this.props.userData.loggedIn) {
+      return <Redirect push to="/allCourses" />;
+    }
+
     return(
-      <LoginForm
+      <LoginUserForm
       emailId = {this.state.userData.emailId}
       password = {this.state.userData.password}
-      message = {this.state.userData.message}
       handleOnChange ={this.handleOnChange}
       handleOnClickLogin={this.handleOnClickLogin}
       handleOnClickRegister={this.handleOnClickRegister} />
@@ -109,9 +123,16 @@ class LoginUser extends React.Component {
 
 function mapStateToProps(state, ownProps) {
   console.log('login user In mapStateToProps ' + state.userData.emailId);
+  console.log('in mapPropsToState - status is ' + state.userData.status +
+    ',message ' + state.userData.message );
   return {
     userData: state.userData
   };
 }
+
+LoginUser.propTypes = {
+  userData: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired
+};
 
 export default connect(mapStateToProps)(LoginUser);

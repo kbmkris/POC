@@ -15,32 +15,24 @@ export function loginUser(userData) {
     return UserApi.loginUser(
       userData.emailId,
       userData.password).then(response => {
-        let userData1 = userData;
+        let userData1 = Object.assign({},userData);
         userData1.status = response.status;
         userData1.message = response.message;
         if (userData1.status === 'success') {
           userData1.loggedIn = true;
-          userData1.message = 'Login Success. Redirecting...';
+          userData1.message = 'Login Successful';
         } else {
           userData1.loggedIn = false;
           userData1.message = 'Invalid Credentials. Please check';
         }
         console.log("value of userData1 " + userData1.loggedIn);
-//        debugger;
         dispatch(loginUserSuccess(userData1));
-        if (userData1.loggedIn) {
-          console.log('inside if');
-          setTimeout(() => {history.push('/courseMain');},2000);
-        }
+//        if (userData1.loggedIn) {
+//          console.log('User is logged in so redirecting to allCourses Page');
+//          setTimeout(() => {history.push('/allCourses');},0);
+//        }
       }).catch(error => {
         throw(error);
       });
-  };
-}
-
-export function registerUser(userData) {
-  return {
-    type: actionTypes.REGISTER_USER,
-    userData: userData
   };
 }

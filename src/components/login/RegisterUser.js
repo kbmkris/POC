@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import RegisterForm from './RegisterForm';
+import { Redirect } from 'react-router-dom';
+import { toastr } from 'react-redux-toastr';
+import RegisterUserForm from './RegisterUserForm';
 import * as RegisterAction from '../../action/RegisterAction';
+import { PropTypes } from 'prop-types';
 
 class RegisterUser extends React.Component {
 
@@ -11,7 +14,7 @@ class RegisterUser extends React.Component {
     this.state = {
       userData: {
         name: '',
-        sapId: '',
+        sapId: 0,
         emailId: '',
         primarySkill: '',
         band: '',
@@ -19,10 +22,14 @@ class RegisterUser extends React.Component {
         status: '',
         message: '',
         loggedIn: false
-      }
+      },
+      cancelForm: false
     };
+
+    this.validateData = this.validateData.bind(this);
     this.handleOnChange = this.handleOnChange.bind(this);
-    this.handleOnClick = this.handleOnClick.bind(this);
+    this.handleOnClickSubmit = this.handleOnClickSubmit.bind(this);
+    this.handleOnClickCancel = this.handleOnClickCancel.bind(this);
   }
 
 /*
@@ -34,6 +41,11 @@ class RegisterUser extends React.Component {
       this.props.userData.message);
     if (this.props.userData.status !== prevProps.userData.status) {
       const { userData } = this.props;
+      if (this.props.userData.status === 'success') {
+        toastr.success(this.props.userData.message);
+      } else {
+        toastr.error(this.props.userData.message);
+      }
       this.setState({userData});
     }
   }
@@ -45,16 +57,66 @@ class RegisterUser extends React.Component {
     this.setState({ userData: userData});
   }
 
-  handleOnClick(event) {
+  validateData() {
+    let errorCount = 0;
+    if (this.state.userData.name === '' ||
+        this.state.userData.name.length < 6) {
+      toastr.error('Enter a valid Name - minimum six characters');
+      errorCount++;
+    }
+    if (this.state.userData.sapId === 0 ) {
+      toastr.error('Enter valid Sap ID - should be non zero');
+      errorCount++;
+    }
+    const pattern = /^[a-z|A-Z|0-9]*@[a-z|A-Z|0-9]*\.[a-z|A-Z]*$/;
+    if (!pattern.test(this.state.userData.emailId)) {
+      toastr.error('Enter a valid email Id');
+      errorCount++;
+    }
+    if (this.state.userData.primarySkill === '' ||
+        this.state.userData.primarySkill.length < 3) {
+      toastr.error('Enter a valid primary skill - minimum 3 characters');
+      errorCount++;
+    }
+    if (this.state.userData.band === '') {
+      toastr.error('Enter a valid band');
+      errorCount++;
+    }
+    if (this.state.userData.password === '' ||
+        this.state.userData.password.length < 6) {
+      toastr.error('Enter a valid password - minimum 6 characters');
+      errorCount++;
+    }
+
+    return errorCount === 0 ? true : false;
+  }
+
+  handleOnClickSubmit(event) {
     event.preventDefault();
     console.log("Submit button clicked with " + this.state.userData.name);
-    this.props.dispatch(RegisterAction.registerUser(this.state.userData));
+    this.validateData() ?
+    this.props.dispatch(RegisterAction.registerUser(this.state.userData))
+    : '';
+  }
+
+  handleOnClickCancel(event) {
+    const cancelForm = true;
+    this.setState({cancelForm});
   }
 
   render(){
-    const name = this.props.userData.name !== undefined
+
+    if (this.props.userData.status === 'success') {
+      return <Redirect push to="/loginUser" />;
+    }
+
+    if (this.state.cancelForm) {
+      return <Redirect push to="/" />;
+    }
+
+//    const name = this.props.userData.name !== undefined;
     return(
-      <RegisterForm
+      <RegisterUserForm
         name={this.state.userData.name}
         sapId={this.state.userData.sapId}
         emailId={this.state.userData.emailId}
@@ -63,9 +125,10 @@ class RegisterUser extends React.Component {
         password={this.state.userData.password}
         message={this.state.userData.message}
         handleOnChange={this.handleOnChange}
-        handleOnClick={this.handleOnClick}
+        handleOnClickSubmit={this.handleOnClickSubmit}
+        handleOnClickCancel={this.handleOnClickCancel}
       />
-    )
+    );
   }
 }
 
@@ -76,5 +139,10 @@ function mapStateToProps (state, ownProps) {
     userData: state.userData
   };
 }
+
+RegisterUser.propTypes = {
+  userData : PropTypes.object.isRequired,
+  dispatch : PropTypes.func.isRequired
+};
 
 export default connect(mapStateToProps)(RegisterUser);
