@@ -7,6 +7,7 @@ import * as LoginAction from '../../action/LoginAction';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
+import history from '../../history';
 
 class LoginUser extends React.Component {
   constructor (props) {
@@ -51,12 +52,12 @@ class LoginUser extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-      console.log("Inside did update");
-    console.log(this.props);
-    console.log(prevProps);
+//      console.log("Inside did update");
+//    console.log(this.props);
+//    console.log(prevProps);
     if (this.props.userData.status) {
-      console.log(this.state.userData);
-      if (prevProps.userData.loggedIn !== this.props.userData.loggedIn) {
+//      console.log(this.state.userData);
+      if (prevProps.userData.loggedIn !== this.props.userData.loggedIn ) {
         const { userData } = this.props;
         const toastrOptions = { timeOut: 1000 };
         if (this.props.userData.status === 'success') {
@@ -98,6 +99,9 @@ class LoginUser extends React.Component {
 
   handleOnClickRegister(event) {
     event.preventDefault();
+    console.log("inside on click register");
+//    console.log(history);
+//    history.push('/registerUser');
     this.setState({register: true});
   }
 
@@ -107,6 +111,7 @@ class LoginUser extends React.Component {
     }
 
     if (this.props.userData.loggedIn) {
+//      return this.props.history.push("/allCourses");
       return <Redirect push to="/allCourses" />;
     }
 
@@ -122,9 +127,9 @@ class LoginUser extends React.Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  console.log('login user In mapStateToProps ' + state.userData.emailId);
-  console.log('in mapPropsToState - status is ' + state.userData.status +
-    ',message ' + state.userData.message );
+//  console.log('login user In mapStateToProps ' + state.userData.emailId);
+//  console.log('in mapPropsToState - status is ' + state.userData.status +
+//    ',message ' + state.userData.message );
   return {
     userData: state.userData
   };

@@ -13,6 +13,7 @@ export function getAllCourses() {
   return function(dispatch) {
     return CourseApi.getAllCourses()
       .then((allCoursesData) => {
+        console.log("courses are retrieved now");
         dispatch(getAllCoursesSuccess(allCoursesData));
       }).catch(error => {
         throw(error);
@@ -21,8 +22,8 @@ export function getAllCourses() {
 }
 
 export function getRecommendedCoursesSuccess(allCoursesData) {
-  console.log("getRecommendedCoursesSuccess");
-  console.log(allCoursesData);
+//  console.log("getRecommendedCoursesSuccess");
+//  console.log(allCoursesData);
   return {
     type: actionTypes.GET_RECOMMENDED_COURSES,
     allCoursesData

@@ -13,13 +13,13 @@ export function enroleCourse(userData) {
   return function(dispatch) {
     return UserApi.enroleUser(userData)
       .then((response) => {
-        console.log('In response');
+//        console.log('In response');
         let userData1 = Object.assign({}, userData);
-        console.log(userData1);
+//        console.log(userData1);
         userData1.status = response.status;
         userData1.message = response.message;
         userData1.enrollCount++;
-        console.log(userData1);
+//        console.log(userData1);
         dispatch(enroleCourseSuccess(userData1));
       }).catch(error => {
         throw(error);
@@ -28,8 +28,8 @@ export function enroleCourse(userData) {
 }
 
 export function getEnrolledCoursesSuccess(userData) {
-  console.log("getEnrolledCoursesSuccess output ");
-  console.log(userData);
+//  console.log("getEnrolledCoursesSuccess output ");
+//  console.log(userData);
   return {
     type: actionTypes.GET_ENROLLED_COURSES,
     userData
@@ -38,7 +38,7 @@ export function getEnrolledCoursesSuccess(userData) {
 
 export function getEnrolledCourses(userData) {
   return function (dispatch) {
-    console.log("Inside getEnrolledCourses");
+//    console.log("Inside getEnrolledCourses");
     return UserApi.getEnrolledCourses(userData)
       .then((response) => {
         let userData1 = Object.assign({},userData);
@@ -71,17 +71,17 @@ export function updateCourseStatusSuccess(userData) {
 
 export function updateCourseStatus(enrolledCourse, userData) {
   return function (dispatch) {
-    console.log("Inside updateCourseStatus function");
+//    console.log("Inside updateCourseStatus function");
     enrolledCourse.TEACHOTHERS = enrolledCourse.TEACHOTHERS === true ? 'Yes' : 'No';
     return UserApi.updateCourseStatus (enrolledCourse)
       .then((response) => {
-        console.log("Inside response");
-        console.log(userData);
+//        console.log("Inside response");
+//        console.log(userData);
         const userData1 = Object.assign({},userData);
         userData1.status = response.status;
         userData1.message = response.message;
         userData1.updateCount++;
-        console.log(userData1);
+//        console.log(userData1);
         dispatch(updateCourseStatusSuccess(userData1));
       }).catch(error => {
         throw(error);

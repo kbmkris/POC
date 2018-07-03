@@ -21,11 +21,11 @@ const CourseTrackerForm = ({
           <React.Fragment
             key={idx} >
             <tr >
-              <td class="td-id">{course.COURSE_ID}</td>
-              <td class="td-name">{course.COURSE_NAME}</td>
-              <td class="td-status">{course.STATUS}</td>
-              <td class="td-comments">{course.COMMENTS}</td>
-              <td class="td-teachothers">{course.TEACHOTHERS === false ? 'No' : 'Yes' }
+              <td className="td-id">{course.COURSE_ID}</td>
+              <td className="td-name">{course.COURSE_NAME}</td>
+              <td className="td-status">{course.STATUS}</td>
+              <td className="td-comments">{course.COMMENTS}</td>
+              <td className="td-teachothers">{course.TEACHOTHERS === false ? 'No' : 'Yes' }
               </td>
               <td>
                 <input

@@ -3,7 +3,7 @@ import UserApi from '../api/userApi';
 import history from '../history';
 
 export function loginUserSuccess(userData) {
-  console.log(userData);
+//  console.log(userData);
   return {
     type: actionTypes.LOGIN_USER,
     userData
@@ -25,7 +25,7 @@ export function loginUser(userData) {
           userData1.loggedIn = false;
           userData1.message = 'Invalid Credentials. Please check';
         }
-        console.log("value of userData1 " + userData1.loggedIn);
+//        console.log("value of userData1 " + userData1.loggedIn);
         dispatch(loginUserSuccess(userData1));
 //        if (userData1.loggedIn) {
 //          console.log('User is logged in so redirecting to allCourses Page');

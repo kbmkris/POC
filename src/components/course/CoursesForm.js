@@ -9,9 +9,7 @@ const CoursesForm = ({
   panelClassName,
   handleOnClickToggle,
   handleOnClickEnroll
-}) => {
-  console.log("class is " + btnClassName);
-  return (
+}) => (
     <div className="main-div">
       {allCoursesData.map((allCoursesData,idx) => (
         <React.Fragment key={idx}>
@@ -48,8 +46,8 @@ const CoursesForm = ({
         </React.Fragment>
       ))}
     </div>
-  );
-};
+);
+
 
 CoursesForm.propTypes = {
   allCoursesData : PropTypes.array.isRequired,

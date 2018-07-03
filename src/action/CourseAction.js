@@ -12,19 +12,22 @@ export function addCourseSuccess(courseData) {
 
 export function addCourse (courseData) {
   return function(dispatch) {
-    console.log("going to courseapi");
     return CourseApi.addNewCourse(courseData)
       .then((response) => {
         const courseData1 = Object.assign({},courseData);
-        courseData1.status = response.status;
-        courseData1.message = response.message;
-        console.log("Going to dispatch addCourseSuccess");
+        const resp = response.find(resp => resp.status === 'error');
+        courseData1.courseCount++;
+        if (resp === undefined) {
+          courseData1.status = 'success';
+          courseData1.message = 'Course inserted successfully';
+        } else {
+          courseData1.status = 'error';
+          courseData1.message = resp.message;
+        }
         dispatch(addCourseSuccess(courseData1));
-//        if (courseData1.status === 'success') {
-//          setTimeout(() => {history.push('/allCourses');},2000);
-//        }
       }).catch(error => {
         throw(error);
       });
+
   };
 }

@@ -69,12 +69,12 @@ class CourseTracker extends React.Component {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     let modalCourseData = JSON.parse(JSON.stringify(this.state.modalCourseData));
     let userData = JSON.parse(JSON.stringify(this.state.userData));
-    console.log('in on change');
-    console.log(modalCourseData);
+//    console.log('in on change');
+//    console.log(modalCourseData);
     modalCourseData[name] = value;
-    console.log(name + ',' + value);
+//    console.log(name + ',' + value);
     userData.enrolledCourses[this.state.modalCourseIndex] = modalCourseData;
-    console.log(this.state.userData.enrolledCourses);
+//    console.log(this.state.userData.enrolledCourses);
     this.setState({
       modalCourseData,
       userData
@@ -84,8 +84,8 @@ class CourseTracker extends React.Component {
   handleOnClickUpdate(event, id) {
     event.preventDefault();
     const modalCourseData = JSON.parse(JSON.stringify(this.state.userData.enrolledCourses[id]));
-    console.log('in on click update');
-    console.log(modalCourseData);
+//    console.log('in on click update');
+//    console.log(modalCourseData);
     this.setState({
       doIShowModal: true,
       modalCourseIndex: id,

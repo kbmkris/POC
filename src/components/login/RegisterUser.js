@@ -10,19 +10,21 @@ class RegisterUser extends React.Component {
 
   constructor(props){
     super(props);
-    console.log('in constructor');
     this.state = {
-      userData: {
-        name: '',
-        sapId: 0,
-        emailId: '',
-        primarySkill: '',
-        band: '',
-        password: '',
-        status: '',
-        message: '',
-        loggedIn: false
-      },
+      userData: Object.assign (
+        {},
+        this.props.userData,
+        {
+          name: '',
+          sapId: 0,
+          emailId: '',
+          primarySkill: '',
+          band: '',
+          password: '',
+          status: '',
+          message: '',
+          loggedIn: false
+        }),
       cancelForm: false
     };
 
@@ -37,8 +39,8 @@ class RegisterUser extends React.Component {
   props to avoid infinity render.
 */
   componentDidUpdate(prevProps) {
-    console.log("in componentDidUpdate " + this.props.userData.status + ',' +
-      this.props.userData.message);
+//    console.log("in componentDidUpdate " + this.props.userData.status + ',' +
+//      this.props.userData.message);
     if (this.props.userData.status !== prevProps.userData.status) {
       const { userData } = this.props;
       if (this.props.userData.status === 'success') {
@@ -93,7 +95,7 @@ class RegisterUser extends React.Component {
 
   handleOnClickSubmit(event) {
     event.preventDefault();
-    console.log("Submit button clicked with " + this.state.userData.name);
+//    console.log("Submit button clicked with " + this.state.userData.name);
     this.validateData() ?
     this.props.dispatch(RegisterAction.registerUser(this.state.userData))
     : '';
@@ -106,7 +108,7 @@ class RegisterUser extends React.Component {
 
   render(){
 
-    if (this.props.userData.status === 'success') {
+    if (this.state.userData.status === 'success') {
       return <Redirect push to="/loginUser" />;
     }
 
@@ -133,8 +135,8 @@ class RegisterUser extends React.Component {
 }
 
 function mapStateToProps (state, ownProps) {
-  console.log('In mapStateToProps ' + state.userData.status + ',' +
-    state.userData.message);
+//  console.log('In mapStateToProps ' + state.userData.status + ',' +
+//    state.userData.message);
   return {
     userData: state.userData
   };

@@ -16,7 +16,7 @@ class UserApi {
     dataToSend = dataToSend + '&band=' + userData.band;
     dataToSend = dataToSend + '&password=' + userData.password;
     let url = 'http://localhost:3000/users/rest/registerUser';
-    console.log(dataToSend);
+//    console.log(dataToSend);
     return AjaxRequest.getDataFromApi(url, dataToSend);
   }
 
@@ -32,14 +32,14 @@ class UserApi {
   }
 
   static getEnrolledCourses(userData) {
-    console.log('inside api');
+//    console.log('inside api');
     let dataToSend = 'emailId=' + userData.emailId;
     let url = 'http://localhost:3000/course/rest/myEnrolledCourses';
     return AjaxRequest.getDataFromApi(url, dataToSend);
   }
 
   static updateCourseStatus(enrolledCourse) {
-    console.log("inside update courses api");
+//    console.log("inside update courses api");
     let dataToSend = 'comments=' + enrolledCourse.COMMENTS + "&status=";
     dataToSend = dataToSend + enrolledCourse.STATUS + "&teachOthers=";
     dataToSend = dataToSend + enrolledCourse.TEACHOTHERS + "&courseId=";

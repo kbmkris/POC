@@ -53,7 +53,7 @@ class Courses extends React.Component
   }
 
   componentDidMount() {
-    console.log("Courses - ComponentDidMount - User email id is " + this.props.userData.emailId);
+//    console.log("Courses - ComponentDidMount - User email id is " + this.props.userData.emailId);
     if (this.props.recommendedCourses === true) {
       this.props.dispatch(AllCoursesAction.getRecommendedCourses(this.props.userData.emailId));
     } else {
@@ -62,9 +62,10 @@ class Courses extends React.Component
   }
 
   componentDidUpdate(prevProps) {
-    console.log(this.props);
-    console.log(prevProps);
-    console.log(this.state.userData);
+    console.log("inside courses componentDidUpdate");
+//    console.log(this.props);
+//    console.log(prevProps);
+//    console.log(this.state.userData);
     if (this.props.allCoursesData !== prevProps.allCoursesData) {
       const { allCoursesData } = this.props;
       let btnClassName = [];
@@ -115,8 +116,8 @@ class Courses extends React.Component
     userData.course = {};
     userData.course.courseId = courseId;
     userData.course.courseName = courseName;
-    console.log('in enroll');
-    console.log(userData);
+//    console.log('in enroll');
+//    console.log(userData);
     this.props.dispatch(UserAction.enroleCourse(userData));
 //    console.log("clicked for email id " + this.props.userData.emailId +
 //      " courseId " + courseId);
@@ -124,6 +125,8 @@ class Courses extends React.Component
 
 
   render() {
+
+    console.log ("inside courses render");
     if (this.props.userData.loggedIn !== true) {
       return <Redirect push to="/loginUser" />;
     }
@@ -142,8 +145,8 @@ class Courses extends React.Component
 }
 
 function mapStateToProps(state, ownProps) {
-  console.log("in mapStateToProps");
-  console.log(state.userData);
+//  console.log("in mapStateToProps");
+//  console.log(state.userData);
   return {
     allCoursesData: state.allCoursesData,
     userData: state.userData

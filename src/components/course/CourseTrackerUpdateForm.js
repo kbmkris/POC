@@ -10,8 +10,6 @@ const CourseTrackerUpdateForm = ({
   handleOnClickCancel,
   handleOnClickUpdateStatus
 }) => {
-  console.log("inside form");
-  console.log(modalCourseData);
   if (doIShowModal === false) {
     return null;
   }

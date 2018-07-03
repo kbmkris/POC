@@ -13,9 +13,7 @@ const LoginUserForm = ({
   handleOnChange,
   handleOnClickLogin,
   handleOnClickRegister
-  }) => {
-//    console.log('Inside login form');
-  return (
+  }) =>  (
     <div className="main-div">
       <div className="login-div">
         <h3> Login Form </h3>
@@ -64,8 +62,8 @@ const LoginUserForm = ({
         </form>
       </div>
     </div>
-  );
-};
+);
+
 
 LoginUserForm.propTypes = {
   emailId : PropTypes.string.isRequired,

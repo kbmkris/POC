@@ -11,26 +11,30 @@ class AddCourse extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      courseData: {
-        courseName: '',
-        courseId: '',
-        title: [
-          {
-            courseTitleId: 0,
-            courseTitle: '',
-            link: '',
-            courseId: '',
-            topic: [
-              {
-                topicId: 0,
-                topicName: ''
-              }
-            ]
-          }
-        ],
-        status: '',
-        message: ''
-      },
+      courseData: Object.assign(
+        {},
+        {courseCount: 0},
+        this.props.courseData,
+        {
+          courseName: '',
+          courseId: '',
+          title: [
+            {
+              courseTitleId: 0,
+              courseTitle: '',
+              link: '',
+              courseId: '',
+              topic: [
+                {
+                  topicId: 0,
+                  topicName: ''
+                }
+              ]
+            }
+          ],
+          status: '',
+          message: ''
+        }),
       topicCount: 0,
       titleCount: 0
     };
@@ -51,11 +55,14 @@ class AddCourse extends React.Component {
     props to avoid infinity render.
   */
   componentDidUpdate(prevProps) {
-    if (this.props.courseData.status !== prevProps.courseData.status) {
+//    console.log(this.props);
+//    console.log(prevProps);
+//    console.log(this.state);
+    if (this.props.courseData.courseCount !== prevProps.courseData.courseCount) {
       const courseData = Object.assign({},this.props.courseData);
-      console.log("Updated status");
+//      console.log("Updated status");
       toastr.success(this.props.courseData.message);
-      console.log(courseData);
+//      console.log(courseData);
       this.setState({courseData});
     }
   }
@@ -76,7 +83,7 @@ class AddCourse extends React.Component {
         title[name] = value;
       }
     });
-    console.log(courseData);
+//    console.log(courseData);
     this.setState({courseData});
   }
 
@@ -96,7 +103,7 @@ class AddCourse extends React.Component {
   }
 
   handleOnClickAddTitle(tidx, event) {
-    console.log("Inside handleOnClickAddTitle - " + tidx);
+//    console.log("Inside handleOnClickAddTitle - " + tidx);
     const courseData = Object.assign({},this.state.courseData);
     const titleCount = this.state.titleCount;
     const title = {
@@ -111,22 +118,22 @@ class AddCourse extends React.Component {
         }
       ]
     };
-    console.log(courseData.title.length);
+//    console.log(courseData.title.length);
     if ( tidx === (courseData.title.length - 1)) {
-      console.log("if passed");
+//      console.log("if passed");
       courseData.title = [
         ...courseData.title.slice(0,tidx+1),
         title
       ];
     } else {
-      console.log("third if ");
+//      console.log("third if ");
       courseData.title = [
         ...courseData.title.slice(0,tidx+1),
         title,
         ...courseData.title.slice(tidx+1)
       ];
     }
-    console.log(courseData);
+//    console.log(courseData);
 
     this.setState({
       courseData,
@@ -242,7 +249,7 @@ class AddCourse extends React.Component {
       return <Redirect push to="/loginUser" />;
     }
 
-    if (this.props.courseData.status === 'success') {
+    if (this.state.courseData.status === 'success') {
       return <Redirect push to="/allCourses" />;
     }
 
@@ -264,6 +271,8 @@ class AddCourse extends React.Component {
 }
 
 function mapStateToProps(state, ownProps) {
+//  console.log('inside mapStateToProps');
+//  console.log(state.courseData);
   return {
     courseData: state.courseData,
     userData: state.userData

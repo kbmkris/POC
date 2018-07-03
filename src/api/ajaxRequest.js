@@ -1,10 +1,10 @@
 class AjaxRequest {
   static getDataFromApi(url, dataToSend, type="POST") {
-    console.log(type + ' - ' + url + dataToSend);
+//    console.log(type + ' - ' + url + dataToSend);
     return new Promise( (resolve,reject) => {
       let xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
-       console.log(this.readyState +  ',' + this.status + ',' + this.responseText);
+//       console.log(this.readyState +  ',' + this.status + ',' + this.responseText);
         if (this.readyState === 4 && this.status === 200) {
           resolve(JSON.parse(this.responseText));
         } else if (this.readyState === 4 && this.status === 500) {

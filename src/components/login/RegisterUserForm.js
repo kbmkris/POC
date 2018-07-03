@@ -32,7 +32,7 @@ const RegisterUserForm = ({
         <label
           className="label"
           htmlFor="sapId" >
-          Sap Id :
+          Sap Id :  
         </label>
         <input
           type="number"

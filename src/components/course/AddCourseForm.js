@@ -19,10 +19,7 @@ const AddCourseForm = ({
   handleOnClickAddTopic,
   handleOnClickRemoveTopic,
   handleOnClickSubmitCourse
-}) => {
-  console.log("inside form");
-  console.log(title);
-  return (
+}) =>  (
   <div className="main-div">
   <div className="addcourse-div">
     <h3> Add Course Page </h3>
@@ -135,7 +132,7 @@ const AddCourseForm = ({
   </div>
   </div>
 );
-};
+
 AddCourseForm.propTypes = {
   courseName : PropTypes.string.isRequired,
   title : PropTypes.array.isRequired,
