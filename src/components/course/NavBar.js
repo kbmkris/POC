@@ -11,14 +11,14 @@ class NavBar extends React.Component {
         this.props.location.pathname === '/registerUser') {
       return (
         <div className="nav-container">
-          <h1 className="login-h1"> HCL Student Academy </h1>
+          <h1 className="login-h1"> Student Academy </h1>
         </div>
       );
     }
 
     return(
       <div className="nav-container">
-        <h1>HCL Student Academy</h1>
+        <h1>Student Academy</h1>
         <nav className="nav-bar">
           <NavLink
             to="/addCourse"
