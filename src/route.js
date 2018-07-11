@@ -1,14 +1,14 @@
-import React from 'react';
-import { Router, Route, Redirect, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
-import history from './history';
-import LoginUser from './components/login/LoginUser';
-import RegisterUser from './components/login/RegisterUser';
-import AddCourse from './components/course/AddCourse';
-import Courses from './components/course/Courses';
-import CourseTracker from './components/course/CourseTracker';
-import LogoutUser from './components/login/LogoutUser';
-import NavBar from './components/course/NavBar';
+import React from "react";
+import { Router, Route, Redirect, Switch } from "react-router-dom";
+import { connect } from "react-redux";
+import history from "./history";
+import LoginUser  from "./components/login/LoginUser";
+import RegisterUser from "./components/login/RegisterUser";
+import AddCourse from "./components/course/AddCourse";
+import Courses from "./components/course/Courses";
+import CourseTracker from "./components/course/CourseTracker";
+import LogoutUser from "./components/login/LogoutUser";
+import NavBar from "./components/course/NavBar";
 
 class AppRoute extends React.Component {
 

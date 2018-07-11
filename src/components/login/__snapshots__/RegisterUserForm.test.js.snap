@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RegisterUserForm Test Snapshot - component should render 1`] = `
+<div
+  className="main-div"
+>
+  <div
+    className="register-div"
+  >
+    <h3>
+       Register New User 
+    </h3>
+    <form>
+      <label
+        className="label"
+        htmlFor="name"
+      >
+        Name :
+      </label>
+      <input
+        className="input"
+        id="name"
+        onChange={[MockFunction]}
+        type="text"
+        value=""
+      />
+      <br />
+      <label
+        className="label"
+        htmlFor="sapId"
+      >
+        Sap Id :
+      </label>
+      <input
+        className="input"
+        id="sapId"
+        onChange={[MockFunction]}
+        type="number"
+        value={0}
+      />
+      <br />
+      <label
+        className="label"
+        htmlFor="emailId"
+      >
+        Email Id :
+      </label>
+      <input
+        className="input"
+        id="emailId"
+        onChange={[MockFunction]}
+        type="email"
+        value=""
+      />
+      <br />
+      <label
+        className="label"
+        htmlFor="band"
+      >
+        Band :
+      </label>
+      <input
+        className="input"
+        id="band"
+        onChange={[MockFunction]}
+        type="text"
+        value=""
+      />
+      <br />
+      <label
+        className="label"
+        htmlFor="primarySkill"
+      >
+        Primary Skill :
+      </label>
+      <input
+        className="input"
+        id="primarySkill"
+        onChange={[MockFunction]}
+        type="text"
+        value=""
+      />
+      <br />
+      <label
+        className="label"
+        htmlFor="password"
+      >
+        Password :
+      </label>
+      <input
+        className="input"
+        id="password"
+        onChange={[MockFunction]}
+        type="password"
+        value=""
+      />
+      <br />
+      <div
+        className="button-div"
+      >
+        <button
+          className="button"
+          name="submitButton"
+          onClick={[MockFunction]}
+        >
+          Submit
+        </button>
+        <button
+          className="button"
+          name="cancelButton"
+          onClick={[MockFunction]}
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;

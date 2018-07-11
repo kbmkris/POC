@@ -1,6 +1,6 @@
-import * as actionTypes from '../constants/actionTypes';
-import UserApi from '../api/userApi';
-import history from '../history';
+import * as actionTypes from "../constants/actionTypes";
+import UserApi from "../api/userApi";
+import history from "../history";
 
 export function enroleCourseSuccess(userData){
   return {
@@ -13,7 +13,7 @@ export function enroleCourse(userData) {
   return function(dispatch) {
     return UserApi.enroleUser(userData)
       .then((response) => {
-//        console.log('In response');
+//        console.log("In response");
         let userData1 = Object.assign({}, userData);
 //        console.log(userData1);
         userData1.status = response.status;
@@ -45,13 +45,13 @@ export function getEnrolledCourses(userData) {
         userData1.enrolledCourses = response;
         userData1.enrolledCourses = userData1.enrolledCourses.map((enrolledCourse) => {
           if (enrolledCourse.TEACHOTHERS === null ||
-              enrolledCourse.TEACHOTHERS === 'No') {
+              enrolledCourse.TEACHOTHERS === "No") {
             enrolledCourse.TEACHOTHERS = false;
           } else if (enrolledCourse.TEACHOTHERS === "Yes") {
             enrolledCourse.TEACHOTHERS = true;
           }
           if (enrolledCourse.COMMENTS === null) {
-            enrolledCourse.COMMENTS = '';
+            enrolledCourse.COMMENTS = "";
           }
           return enrolledCourse;
         });
@@ -72,7 +72,7 @@ export function updateCourseStatusSuccess(userData) {
 export function updateCourseStatus(enrolledCourse, userData) {
   return function (dispatch) {
 //    console.log("Inside updateCourseStatus function");
-    enrolledCourse.TEACHOTHERS = enrolledCourse.TEACHOTHERS === true ? 'Yes' : 'No';
+    enrolledCourse.TEACHOTHERS = enrolledCourse.TEACHOTHERS === true ? "Yes" : "No";
     return UserApi.updateCourseStatus (enrolledCourse)
       .then((response) => {
 //        console.log("Inside response");

@@ -1,6 +1,6 @@
-import React from 'react';
-import styles from '../../css/index.css';
-import { PropTypes } from 'prop-types';
+import React from "react";
+import styles from "../../css/index.css";
+import { PropTypes } from "prop-types";
 
 const RegisterUserForm = ({
   name,
@@ -9,6 +9,7 @@ const RegisterUserForm = ({
   primarySkill,
   band,
   password,
+  isLoading,
   handleOnChange,
   handleOnClickSubmit,
   handleOnClickCancel
@@ -32,7 +33,7 @@ const RegisterUserForm = ({
         <label
           className="label"
           htmlFor="sapId" >
-          Sap Id :  
+          Sap Id :
         </label>
         <input
           type="number"
@@ -92,11 +93,13 @@ const RegisterUserForm = ({
         <div className="button-div">
           <button
             className="button"
+            name="submitButton"
             onClick={handleOnClickSubmit} >
-            Submit
+            {isLoading ? "Registering..." : "Submit"}
           </button>
           <button
             className="button"
+            name="cancelButton"
             onClick={handleOnClickCancel} >
             Cancel
           </button>
@@ -114,9 +117,20 @@ RegisterUserForm.propTypes = {
   primarySkill : PropTypes.string.isRequired,
   band : PropTypes.string.isRequired,
   password : PropTypes.string.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   handleOnChange : PropTypes.func.isRequired,
   handleOnClickSubmit : PropTypes.func.isRequired,
   handleOnClickCancel : PropTypes.func.isRequired
+};
+
+RegisterUserForm.defaultProps = {
+  name: "",
+  sapId: 0,
+  emailId: "",
+  primarySkill: "",
+  band: "",
+  password: "",
+  isLoading: false
 };
 
 export default RegisterUserForm;

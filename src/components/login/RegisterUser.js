@@ -1,12 +1,12 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { toastr } from 'react-redux-toastr';
-import RegisterUserForm from './RegisterUserForm';
-import * as RegisterAction from '../../action/RegisterAction';
-import { PropTypes } from 'prop-types';
+import React from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { toastr } from "react-redux-toastr";
+import RegisterUserForm from "./RegisterUserForm";
+import * as RegisterAction from "../../action/RegisterAction";
+import { PropTypes } from "prop-types";
 
-class RegisterUser extends React.Component {
+export class RegisterUser extends React.Component {
 
   constructor(props){
     super(props);
@@ -15,19 +15,19 @@ class RegisterUser extends React.Component {
         {},
         this.props.userData,
         {
-          name: '',
+          name: "",
           sapId: 0,
-          emailId: '',
-          primarySkill: '',
-          band: '',
-          password: '',
-          status: '',
-          message: '',
+          emailId: "",
+          primarySkill: "",
+          band: "",
+          password: "",
+          status: "",
+          message: "",
           loggedIn: false
         }),
+      isLoading: false,
       cancelForm: false
     };
-
     this.validateData = this.validateData.bind(this);
     this.handleOnChange = this.handleOnChange.bind(this);
     this.handleOnClickSubmit = this.handleOnClickSubmit.bind(this);
@@ -39,11 +39,11 @@ class RegisterUser extends React.Component {
   props to avoid infinity render.
 */
   componentDidUpdate(prevProps) {
-//    console.log("in componentDidUpdate " + this.props.userData.status + ',' +
+//    console.log("in componentDidUpdate " + this.props.userData.status + "," +
 //      this.props.userData.message);
     if (this.props.userData.status !== prevProps.userData.status) {
       const { userData } = this.props;
-      if (this.props.userData.status === 'success') {
+      if (this.props.userData.status === "success") {
         toastr.success(this.props.userData.message);
       } else {
         toastr.error(this.props.userData.message);
@@ -61,32 +61,32 @@ class RegisterUser extends React.Component {
 
   validateData() {
     let errorCount = 0;
-    if (this.state.userData.name === '' ||
+    if (this.state.userData.name === "" ||
         this.state.userData.name.length < 6) {
-      toastr.error('Enter a valid Name - minimum six characters');
+      toastr.error("Enter a valid Name - minimum six characters");
       errorCount++;
     }
     if (this.state.userData.sapId === 0 ) {
-      toastr.error('Enter valid Sap ID - should be non zero');
+      toastr.error("Enter valid Sap ID - should be non zero");
       errorCount++;
     }
     const pattern = /^[a-z|A-Z|0-9]*@[a-z|A-Z|0-9]*\.[a-z|A-Z]*$/;
     if (!pattern.test(this.state.userData.emailId)) {
-      toastr.error('Enter a valid email Id');
+      toastr.error("Enter a valid email Id");
       errorCount++;
     }
-    if (this.state.userData.primarySkill === '' ||
+    if (this.state.userData.primarySkill === "" ||
         this.state.userData.primarySkill.length < 3) {
-      toastr.error('Enter a valid primary skill - minimum 3 characters');
+      toastr.error("Enter a valid primary skill - minimum 3 characters");
       errorCount++;
     }
-    if (this.state.userData.band === '') {
-      toastr.error('Enter a valid band');
+    if (this.state.userData.band === "") {
+      toastr.error("Enter a valid band");
       errorCount++;
     }
-    if (this.state.userData.password === '' ||
+    if (this.state.userData.password === "" ||
         this.state.userData.password.length < 6) {
-      toastr.error('Enter a valid password - minimum 6 characters');
+      toastr.error("Enter a valid password - minimum 6 characters");
       errorCount++;
     }
 
@@ -96,24 +96,30 @@ class RegisterUser extends React.Component {
   handleOnClickSubmit(event) {
     event.preventDefault();
 //    console.log("Submit button clicked with " + this.state.userData.name);
-    this.validateData() ?
-    this.props.dispatch(RegisterAction.registerUser(this.state.userData))
-    : '';
+    if (this.validateData()) {
+      this.props.dispatch(RegisterAction.registerUser(this.state.userData));
+    } else {
+      const userData = Object.assign({},this.state.userData);
+      userData.status = "error";
+      userData.message = "validation error";
+      this.setState({userData});
+    }
   }
 
   handleOnClickCancel(event) {
+
     const cancelForm = true;
     this.setState({cancelForm});
   }
 
   render(){
 
-    if (this.state.userData.status === 'success') {
+    if (this.state.userData.status === "success") {
       return <Redirect push to="/loginUser" />;
     }
 
     if (this.state.cancelForm) {
-      return <Redirect push to="/" />;
+      return <Redirect push to="/loginUser" />;
     }
 
 //    const name = this.props.userData.name !== undefined;
@@ -125,7 +131,7 @@ class RegisterUser extends React.Component {
         primarySkill={this.state.userData.primarySkill}
         band={this.state.userData.band}
         password={this.state.userData.password}
-        message={this.state.userData.message}
+        isLoading={this.props.isLoading}
         handleOnChange={this.handleOnChange}
         handleOnClickSubmit={this.handleOnClickSubmit}
         handleOnClickCancel={this.handleOnClickCancel}
@@ -135,16 +141,34 @@ class RegisterUser extends React.Component {
 }
 
 function mapStateToProps (state, ownProps) {
-//  console.log('In mapStateToProps ' + state.userData.status + ',' +
+//  console.log("In mapStateToProps " + state.userData.status + "," +
 //    state.userData.message);
   return {
-    userData: state.userData
+    userData: state.userData,
+    isLoading: state.isLoading
   };
 }
 
 RegisterUser.propTypes = {
   userData : PropTypes.object.isRequired,
-  dispatch : PropTypes.func.isRequired
+  dispatch : PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired
+};
+
+RegisterUser.defaultProps = {
+  userData: {
+    name: "",
+    sapId: "",
+    emailId: "",
+    primarySkill: "",
+    band: "",
+    password: "",
+    status: "",
+    message: "",
+    loggedIn: false
+  },
+  isLoading: false,
+  dispatch : () => {}
 };
 
 export default connect(mapStateToProps)(RegisterUser);

@@ -1,4 +1,4 @@
-import AjaxRequest from './ajaxRequest';
+import AjaxRequest from "./ajaxRequest";
 
 class CourseApi {
 
@@ -18,7 +18,7 @@ class CourseApi {
   }
 
   static addNewCourse(courseData) {
-//    console.log('In courseApi ' + courseData);
+//    console.log("In courseApi " + courseData);
     let dataToSend = "";
     let url = "";
     let rmessage = "";

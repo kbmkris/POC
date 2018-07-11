@@ -1,38 +1,38 @@
-import React from 'react';
-import { createStore } from 'redux';
-import rootReducer from '../reducer';
-import * as LoginActions from '../action/LoginAction';
-import nock from 'nock';
+import React from "react";
+import { createStore } from "redux";
+import rootReducer from "../reducer";
+import * as LoginActions from "../action/LoginAction";
+import nock from "nock";
 
-describe('Store', () => {
-  it('Test Store > Reducer > action without async', () => {
+describe("Store", () => {
+  it("Test Store > Reducer > action without async", () => {
     const initialStore = {};
     const store = createStore(
       rootReducer,
       initialStore
     );
     const userData = {
-      name: '',
-      sapId: '',
-      emailId: 'balamuralikrishnan.k@hcl.com',
-      primarySkill: '',
-      band: '',
-      password: '********',
-      status: '',
-      message: '',
+      name: "",
+      sapId: "",
+      emailId: "balamuralikrishnan.k@hcl.com",
+      primarySkill: "",
+      band: "",
+      password: "********",
+      status: "",
+      message: "",
       loggedIn: false,
       isLoading: false,
     };
 
     const expectedUserData = {
-      name: '',
-      sapId: '',
-      emailId: 'balamuralikrishnan.k@hcl.com',
-      primarySkill: '',
-      band: '',
-      password: '********',
-      status: '',
-      message: '',
+      name: "",
+      sapId: "",
+      emailId: "balamuralikrishnan.k@hcl.com",
+      primarySkill: "",
+      band: "",
+      password: "********",
+      status: "",
+      message: "",
       loggedIn: false,
       isLoading: false,
     };

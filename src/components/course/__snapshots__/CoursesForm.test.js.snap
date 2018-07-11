@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CoursesForm Test Snapshot - component should render 1`] = `
+<div
+  className="main-div"
+>
+  <button
+    className="collapsible"
+    name="button0"
+    onClick={[Function]}
+  >
+    
+  </button>
+  <div
+    className="panelInactive"
+    name="div{idx}"
+  >
+    <input
+      className="button enroll-button"
+      onClick={[Function]}
+      type="button"
+      value="Enroll"
+    />
+    <ul
+      className="list"
+    >
+      <li>
+        <span
+          className="title-span"
+        >
+             -   
+        </span>
+        <a
+          href=""
+          target="_blank"
+        >
+          
+        </a>
+      </li>
+      <ul
+        className="inner-list"
+      >
+        <li>
+          
+        </li>
+      </ul>
+    </ul>
+  </div>
+</div>
+`;

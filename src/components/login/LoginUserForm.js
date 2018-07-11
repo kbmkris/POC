@@ -1,6 +1,6 @@
-import React from 'react';
-import { PropTypes } from 'prop-types';
-import styles from '../../css/index.css';
+import React from "react";
+import { PropTypes } from "prop-types";
+import styles from "../../css/index.css";
 
 /*
   For input elements, mention id as userData property name so one
@@ -10,6 +10,7 @@ import styles from '../../css/index.css';
 const LoginUserForm = ({
   emailId,
   password,
+  isLoading,
   handleOnChange,
   handleOnClickLogin,
   handleOnClickRegister
@@ -49,11 +50,15 @@ const LoginUserForm = ({
           <br />
           <div className="button-div">
             <button
+              type="submit"
+              name="loginButton"
               className="button button-left"
               onClick={handleOnClickLogin} >
-            Login
+            {isLoading ? "Logging In..." : "Login"}
             </button>
             <button
+              type="submit"
+              name="registerButton"
               className="button button-right"
               onClick={handleOnClickRegister} >
               Register
@@ -68,9 +73,16 @@ const LoginUserForm = ({
 LoginUserForm.propTypes = {
   emailId : PropTypes.string.isRequired,
   password : PropTypes.string.isRequired,
+  isLoading : PropTypes.bool.isRequired,
   handleOnChange : PropTypes.func.isRequired,
   handleOnClickLogin : PropTypes.func.isRequired,
   handleOnClickRegister : PropTypes.func.isRequired
+};
+
+LoginUserForm.defaultProps = {
+  emailId : "",
+  password : "",
+  isLoading : false
 };
 
 export default LoginUserForm;

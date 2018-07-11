@@ -1,6 +1,6 @@
-import React from 'react';
-import styles from '../../css/index.css';
-import { PropTypes } from 'prop-types';
+import React from "react";
+import styles from "../../css/index.css";
+import { PropTypes } from "prop-types";
 
 
 const CoursesForm = ({
@@ -30,7 +30,7 @@ const CoursesForm = ({
                 <React.Fragment key={idx}>
                   <li key={`l${idx}`}>
                     <span className="title-span">
-                      {title.courseTitle + '   -   '}
+                      {title.courseTitle + "   -   "}
                     </span>
                     <a target="_blank" href={title.link}>{title.link}</a>
                   </li>

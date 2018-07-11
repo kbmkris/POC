@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginUserForm Test Snapshot - component should render 1`] = `
+<div
+  className="main-div"
+>
+  <div
+    className="login-div"
+  >
+    <h3>
+       Login Form 
+    </h3>
+    <form
+      className="login-form"
+    >
+      <label
+        className="label"
+        htmlFor="emailId"
+      >
+        User Name :
+      </label>
+      <br />
+      <input
+        autoComplete="on"
+        className="input"
+        id="emailId"
+        onChange={[MockFunction]}
+        placeholder="Enter your email Id"
+        type="email"
+        value=""
+      />
+      <br />
+      <label
+        className="label"
+        htmlFor="password"
+      >
+        Password :
+      </label>
+      <br />
+      <input
+        autoComplete="current-password"
+        className="input"
+        id="password"
+        onChange={[MockFunction]}
+        type="password"
+        value=""
+      />
+      <br />
+      <div
+        className="button-div"
+      >
+        <button
+          className="button button-left"
+          name="loginButton"
+          onClick={[MockFunction]}
+          type="submit"
+        >
+          Login
+        </button>
+        <button
+          className="button button-right"
+          name="registerButton"
+          onClick={[MockFunction]}
+          type="submit"
+        >
+          Register
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;

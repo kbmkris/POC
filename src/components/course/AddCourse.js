@@ -1,44 +1,49 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { PropTypes } from 'prop-types';
-import {toastr} from 'react-redux-toastr';
-import styles from '../../css/index.css';
-import AddCourseForm from './AddCourseForm';
-import * as CourseActions from '../../action/CourseAction';
+import React from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { PropTypes } from "prop-types";
+import {toastr} from "react-redux-toastr";
+import styles from "../../css/index.css";
+import AddCourseForm from "./AddCourseForm";
+import * as AddCourseActions from "../../action/AddCourseAction";
 
-class AddCourse extends React.Component {
+export class AddCourse extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: false,
       courseData: Object.assign(
         {},
-        {courseCount: 0},
+        {
+          courseCount: 0
+         },
         this.props.courseData,
         {
-          courseName: '',
-          courseId: '',
+          courseName: "",
+          courseId: "",
           title: [
             {
               courseTitleId: 0,
-              courseTitle: '',
-              link: '',
-              courseId: '',
+              courseTitle: "",
+              link: "",
+              courseId: "",
               topic: [
                 {
                   topicId: 0,
-                  topicName: ''
+                  topicName: ""
                 }
               ]
             }
           ],
-          status: '',
-          message: ''
+          status: "",
+          message: "",
+          isCourseSaved: false,
         }),
       topicCount: 0,
       titleCount: 0
     };
-
+    console.log(this.state.courseData);
+    console.log(this.props.courseData);
     this.handleOnChange = this.handleOnChange.bind(this);
     this.handleOnTitleChange = this.handleOnTitleChange.bind(this);
     this.handleOnTopicChange = this.handleOnTopicChange.bind(this);
@@ -105,16 +110,18 @@ class AddCourse extends React.Component {
   handleOnClickAddTitle(tidx, event) {
 //    console.log("Inside handleOnClickAddTitle - " + tidx);
     const courseData = Object.assign({},this.state.courseData);
+    courseData.status = "success";
+    courseData.message = "Title is added";
     const titleCount = this.state.titleCount;
     const title = {
       courseTitleId: titleCount,
-      courseTitle: '',
-      link: '',
-      courseId: '',
+      courseTitle: "",
+      link: "",
+      courseId: "",
       topic: [
         {
           topicId: 0,
-          topicName: ''
+          topicName: ""
         }
       ]
     };
@@ -143,10 +150,12 @@ class AddCourse extends React.Component {
 
   handleOnClickAddTopic(tidx, ttidx, event) {
     const courseData = JSON.parse(JSON.stringify(this.state.courseData));
+    courseData.status = "success";
+    courseData.message = "Topic is added";
     const topicCount = this.state.topicCount;
     const topic = {
       topicId: topicCount,
-      topicName: ''
+      topicName: ""
     };
     if (ttidx === courseData.title[tidx].topic.length) {
       courseData.title[tidx].topic = [
@@ -168,9 +177,13 @@ class AddCourse extends React.Component {
 
   handleOnClickRemoveTitle(tidx, event) {
     const courseData = Object.assign({},this.state.courseData);
+    courseData.status = "success";
+    courseData.message = "Title is removed";
     if (tidx ===0 && tidx === (courseData.title.length - 1)) {
       // always retain atleast one title
-      toastr.error('You have to keep atleast one title');
+      courseData.status = "error";
+      courseData.message = "You have to keep atleast one title";
+      toastr.error("You have to keep atleast one title");
     } else if ( tidx === 0) {
       courseData.title = [
         ...courseData.title.slice(tidx+1)
@@ -190,9 +203,13 @@ class AddCourse extends React.Component {
 
   handleOnClickRemoveTopic(tidx, ttidx, event) {
     const courseData = Object.assign({},this.state.courseData);
+    courseData.status = "success";
+    courseData.message = "Topic is removed";
     if (ttidx ===0 && ttidx === (courseData.title[tidx].topic.length - 1)) {
       // always retain atleast one title
-      toastr.error('You have to keep atleast one topic under a title');
+      courseData.status = "error";
+      courseData.message = "You have to keep atleast one topic under a title";
+      toastr.error("You have to keep atleast one topic under a title");
     } else if ( ttidx === 0) {
       courseData.title[tidx].topic = [
         ...courseData.title[tidx].topic.slice(ttidx + 1)
@@ -227,7 +244,7 @@ class AddCourse extends React.Component {
         errorCount++;
       }
       title.topic.forEach((topic,idx) => {
-        if (topic.topicName < '5') {
+        if (topic.topicName < "5") {
           toastr.error(`Enter a valid topic for Topic ${index + 1} - ${idx + 1}`);
           errorCount++;
         }
@@ -238,23 +255,32 @@ class AddCourse extends React.Component {
 
   handleOnClickSubmitCourse(event) {
     event.preventDefault();
-    this.validateData() ?
-    this.props.dispatch(CourseActions.addCourse(this.state.courseData))
-     : '';
+    if (this.validateData()) {
+      this.props.dispatch(AddCourseActions.addCourse(this.state.courseData));
+    } else {
+      const courseData = Object.assign({},this.state.courseData);
+      courseData.status = "error";
+      courseData.message = "validation error";
+      this.setState({courseData});
+    }
   }
 
   render() {
+    console.log(this.state.courseData.isCourseSaved);
+    console.log(this.props.courseData.isCourseSaved);
+
     if (this.props.userData.loggedIn !== true) {
       toastr.error("You have to login first");
       return <Redirect push to="/loginUser" />;
     }
 
-    if (this.state.courseData.status === 'success') {
+    if (this.state.courseData.isCourseSaved) {
       return <Redirect push to="/allCourses" />;
     }
 
     return (
       <AddCourseForm
+        isLoading={this.props.isLoading}
         courseName={this.state.courseData.courseName}
         title={this.state.courseData.title}
         handleOnChange={this.handleOnChange}
@@ -271,18 +297,27 @@ class AddCourse extends React.Component {
 }
 
 function mapStateToProps(state, ownProps) {
-//  console.log('inside mapStateToProps');
+//  console.log("inside mapStateToProps");
 //  console.log(state.courseData);
   return {
     courseData: state.courseData,
-    userData: state.userData
+    userData: state.userData,
+    isLoading: state.isLoading
   };
 }
 
 AddCourse.propTypes = {
-  courseData: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  courseData: PropTypes.object.isRequired,
   userData: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+};
+
+AddCourse.defaultProps = {
+  courseData: {},
+  userData: {},
+  dispatch: () => {},
+  isLoading: false,
 };
 
 export default connect(mapStateToProps)(AddCourse);

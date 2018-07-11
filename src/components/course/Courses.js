@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import CoursesForm from './CoursesForm';
-import * as AllCoursesAction from '../../action/AllCoursesAction';
-import * as UserAction from '../../action/UserAction';
-import { PropTypes } from 'prop-types';
-import {toastr} from 'react-redux-toastr';
+import React from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import CoursesForm from "./CoursesForm";
+import * as AllCoursesAction from "../../action/AllCoursesAction";
+import * as UserAction from "../../action/UserAction";
+import { PropTypes } from "prop-types";
+import {toastr} from "react-redux-toastr";
 
 class Courses extends React.Component
 {
@@ -16,8 +16,8 @@ class Courses extends React.Component
         {},
         props.userData,
         {
-          status: '',
-          message: '',
+          status: "",
+          message: "",
           enrollCount: 0
         }
       ),
@@ -28,18 +28,18 @@ class Courses extends React.Component
       },
       allCoursesData: [
         {
-          courseName: '',
-          courseId: '',
+          courseName: "",
+          courseId: "",
           title: [
             {
               courseTitleId: 0,
-              courseTitle: '',
-              link: '',
-              courseId: '',
+              courseTitle: "",
+              link: "",
+              courseId: "",
               topic: [
                 {
                   topicId: 0,
-                  topicName: ''
+                  topicName: ""
                 }
               ]
             }
@@ -62,7 +62,7 @@ class Courses extends React.Component
   }
 
   componentDidUpdate(prevProps) {
-    console.log("inside courses componentDidUpdate");
+//    console.log("inside courses componentDidUpdate");
 //    console.log(this.props);
 //    console.log(prevProps);
 //    console.log(this.state.userData);
@@ -85,7 +85,7 @@ class Courses extends React.Component
       userData.status = this.props.userData.status;
       userData.message = this.props.userData.message;
       userData.enrollCount = this.props.userData.enrollCount;
-      if (userData.status === 'success') {
+      if (userData.status === "success") {
         toastr.success(userData.message);
       } else  {
         toastr.error(userData.message);
@@ -95,11 +95,12 @@ class Courses extends React.Component
   }
 
   handleOnClickToggle(event, idx) {
+//    console.log("handleOnClickToggle with idx " + idx );
     let btnClassName = [...this.state.btnClassName];
     if (btnClassName[idx] === "collapsible") {
-      btnClassName[idx] = 'collapsible active';
+      btnClassName[idx] = "collapsible active";
     } else {
-      btnClassName[idx] = 'collapsible';
+      btnClassName[idx] = "collapsible";
     }
     let panelClassName = [...this.state.panelClassName];
     if (panelClassName[idx] === "panelActive") {
@@ -116,7 +117,7 @@ class Courses extends React.Component
     userData.course = {};
     userData.course.courseId = courseId;
     userData.course.courseName = courseName;
-//    console.log('in enroll');
+//    console.log("in enroll");
 //    console.log(userData);
     this.props.dispatch(UserAction.enroleCourse(userData));
 //    console.log("clicked for email id " + this.props.userData.emailId +
@@ -126,15 +127,22 @@ class Courses extends React.Component
 
   render() {
 
-    console.log ("inside courses render");
+//    console.log ("inside courses render");
     if (this.props.userData.loggedIn !== true) {
       return <Redirect push to="/loginUser" />;
     }
 //    console.log(this.state.btnClassName);
+    if (this.props.isLoading) {
+      return (
+        <div>
+          <h3>Retrieving all Courses. Please Wait...</h3>
+        </div>
+      );
+    }
+
     return (
       <CoursesForm
         allCoursesData = {this.state.allCoursesData}
-        message = {this.state.userData.message}
         btnClassName={this.state.btnClassName}
         panelClassName={this.state.panelClassName}
         handleOnClickToggle = {this.handleOnClickToggle}
@@ -145,11 +153,10 @@ class Courses extends React.Component
 }
 
 function mapStateToProps(state, ownProps) {
-//  console.log("in mapStateToProps");
-//  console.log(state.userData);
   return {
     allCoursesData: state.allCoursesData,
-    userData: state.userData
+    userData: state.userData,
+    isLoading: state.isLoading
   };
 }
 
@@ -157,7 +164,8 @@ Courses.propTypes = {
   userData : PropTypes.object.isRequired,
   recommendedCourses: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
-  allCoursesData: PropTypes.array.isRequired
+  allCoursesData: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired
 };
 
 export default connect(mapStateToProps)(Courses);

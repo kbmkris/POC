@@ -1,6 +1,6 @@
-import React from 'react';
-import styles from '../../css/index.css';
-import { PropTypes } from 'prop-types';
+import React from "react";
+import styles from "../../css/index.css";
+import { PropTypes } from "prop-types";
 
 const CourseTrackerForm = ({
   enrolledCourses,
@@ -25,14 +25,14 @@ const CourseTrackerForm = ({
               <td className="td-name">{course.COURSE_NAME}</td>
               <td className="td-status">{course.STATUS}</td>
               <td className="td-comments">{course.COMMENTS}</td>
-              <td className="td-teachothers">{course.TEACHOTHERS === false ? 'No' : 'Yes' }
+              <td className="td-teachothers">{course.TEACHOTHERS === false ? "No" : "Yes" }
               </td>
               <td>
                 <input
                   type="submit"
-                  className={course.STATUS === 'Completed'? 'button-disabled' : 'button'}
+                  className={course.STATUS === "Completed"? "button-disabled" : "button"}
                   value="Update"
-                  disabled={course.STATUS === 'Completed' ? 'disabled' : ''}
+                  disabled={course.STATUS === "Completed" ? "disabled" : ""}
                   onClick={(e) => handleOnClickUpdate(e,idx)} />
               </td>
             </tr>

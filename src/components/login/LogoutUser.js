@@ -1,8 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import * as LogoutActions from '../../action/LogoutAction';
-import { PropTypes } from 'prop-types';
+import React from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import * as LogoutActions from "../../action/LogoutAction";
+import { PropTypes } from "prop-types";
 
 class LogoutUser extends React.Component {
 

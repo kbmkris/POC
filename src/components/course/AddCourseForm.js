@@ -1,6 +1,6 @@
-import React from 'react';
-import styles from '../../css/index.css';
-import { PropTypes } from 'prop-types';
+import React from "react";
+import styles from "../../css/index.css";
+import { PropTypes } from "prop-types";
 
 /*
   id refers to actual field name.
@@ -9,6 +9,7 @@ import { PropTypes } from 'prop-types';
   so name will be mentioned as topic and id will be topicName
 /*/
 const AddCourseForm = ({
+  isLoading,
   courseName,
   title,
   handleOnChange,
@@ -57,7 +58,7 @@ const AddCourseForm = ({
                   key={`b${tidx}1`}
                   type="button"
                   className="small-button"
-                  name="addTitle"
+                  name="addTitleButton"
                   value=" + "
                   onClick={(e) => handleOnClickAddTitle(tidx,e)} />
               </span>
@@ -66,7 +67,7 @@ const AddCourseForm = ({
                   key={`b${tidx}2`}
                   type="button"
                   className="small-button"
-                  name="removeTitle"
+                  name="removeTitleButton"
                   value=" - "
                   onClick={(e) => handleOnClickRemoveTitle(tidx,e)} />
               </span>
@@ -106,13 +107,15 @@ const AddCourseForm = ({
                     key={`tbutton${tidx}1`}
                     type="button"
                     className="small-button"
-                    value={' + '}
+                    name="addTopicButton"
+                    value={" + "}
                     onClick={(e) => handleOnClickAddTopic(tidx,ttidx,e)} />
                   <input
                     key={`tbutton${tidx}2`}
                     type="button"
                     className="small-button"
-                    value={' - '}
+                    name="removeTopicButton"
+                    value={" - "}
                     onClick={(e) => handleOnClickRemoveTopic(tidx,ttidx,e)} />
                 </span>
               </div>
@@ -124,7 +127,8 @@ const AddCourseForm = ({
         <input
           type="button"
           className="button"
-          value="Add Course"
+          name="addCourseButton"
+          value={isLoading ? "Adding Course..." : "Add Course"}
           onClick={handleOnClickSubmitCourse} />
         <br />
       </div>
@@ -134,6 +138,7 @@ const AddCourseForm = ({
 );
 
 AddCourseForm.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
   courseName : PropTypes.string.isRequired,
   title : PropTypes.array.isRequired,
   message : PropTypes.string.isRequired,
@@ -145,6 +150,13 @@ AddCourseForm.propTypes = {
   handleOnClickAddTopic : PropTypes.func.isRequired,
   handleOnClickRemoveTopic : PropTypes.func.isRequired,
   handleOnClickSubmitCourse : PropTypes.func.isRequired
+};
+
+AddCourseForm.defaultProps = {
+  isLoading: false,
+  courseName: "",
+  title: [{ topic: [] }],
+  message: ""
 };
 
 export default AddCourseForm;

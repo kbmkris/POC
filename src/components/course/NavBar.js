@@ -1,14 +1,14 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import styles from '../../css/index.css';
-import NavBarForm from './NavBarForm';
-import { PropTypes } from 'prop-types';
-import { connect } from 'react-redux';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import styles from "../../css/index.css";
+import NavBarForm from "./NavBarForm";
+import { PropTypes } from "prop-types";
+import { connect } from "react-redux";
 
 class NavBar extends React.Component {
   render () {
-    if (this.props.location.pathname === '/loginUser' ||
-        this.props.location.pathname === '/registerUser') {
+    if (this.props.location.pathname === "/loginUser" ||
+        this.props.location.pathname === "/registerUser") {
       return (
         <div className="nav-container">
           <h1 className="login-h1"> Student Academy </h1>
@@ -27,7 +27,7 @@ class NavBar extends React.Component {
             name="addCourse" >
             Add Course
           </NavLink>
-          {'   '}
+          {"   "}
           <NavLink
             to="/allCourses"
             className="nav-link"
@@ -35,7 +35,7 @@ class NavBar extends React.Component {
             name="allCourses" >
             All Courses
           </NavLink>
-          {'   '}
+          {"   "}
           <NavLink
             to="/recommendedCourses"
             className="nav-link"
@@ -43,7 +43,7 @@ class NavBar extends React.Component {
             name="recommendedCourses" >
             Recommended Courses
           </NavLink>
-          {'   '}
+          {"   "}
           <NavLink
             to="/courseTracker"
             className="nav-link"

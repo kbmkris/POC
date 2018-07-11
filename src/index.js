@@ -1,10 +1,10 @@
-import React from 'react';
-import ReactDom from 'react-dom';
-import AppRoute from './route';
-import { BrowserRouter, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import configureStore from './store/configureStore';
-import ReduxToastr from 'react-redux-toastr';
+import React from "react";
+import ReactDom from "react-dom";
+import AppRoute from "./route";
+import { BrowserRouter, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import configureStore from "./store/configureStore";
+import ReduxToastr from "react-redux-toastr";
 
 const store = configureStore();
 
@@ -21,5 +21,5 @@ ReactDom.render(
         progressBar />
     </div>
   </Provider>,
-  document.getElementById('app')
+  document.getElementById("app")
 );

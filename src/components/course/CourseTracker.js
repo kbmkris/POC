@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { toastr } from 'react-redux-toastr';
-import CourseTrackerForm from './CourseTrackerForm';
-import CourseTrackerUpdateForm from './CourseTrackerUpdateForm';
-import * as UserActions from '../../action/UserAction';
-import { PropTypes } from 'prop-types';
+import React from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { toastr } from "react-redux-toastr";
+import CourseTrackerForm from "./CourseTrackerForm";
+import CourseTrackerUpdateForm from "./CourseTrackerUpdateForm";
+import * as UserActions from "../../action/UserAction";
+import { PropTypes } from "prop-types";
 
 class CourseTracker extends React.Component {
   constructor(props){
@@ -14,7 +14,7 @@ class CourseTracker extends React.Component {
       userData: Object.assign(
         {},
         this.props.userData,
-        {status: '', message: '', updateCount: 0}),
+        {status: "", message: "", updateCount: 0}),
       options: [
         "Not Yet Started",
         "In Progress",
@@ -40,9 +40,9 @@ class CourseTracker extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.userData.updateCount !== prevProps.userData.updateCount) {
       const userData = Object.assign({}, this.props.userData);
-      if (this.props.userData.status === 'success') {
+      if (this.props.userData.status === "success") {
         toastr.success(this.props.userData.message);
-      } else if (this.props.userData.status === 'error') {
+      } else if (this.props.userData.status === "error") {
         toastr.error(this.props.userData.message);
       }
       this.setState({
@@ -66,13 +66,13 @@ class CourseTracker extends React.Component {
   handleOnChange(event) {
     const target = event.target;
     const name = target.name;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.type === "checkbox" ? target.checked : target.value;
     let modalCourseData = JSON.parse(JSON.stringify(this.state.modalCourseData));
     let userData = JSON.parse(JSON.stringify(this.state.userData));
-//    console.log('in on change');
+//    console.log("in on change");
 //    console.log(modalCourseData);
     modalCourseData[name] = value;
-//    console.log(name + ',' + value);
+//    console.log(name + "," + value);
     userData.enrolledCourses[this.state.modalCourseIndex] = modalCourseData;
 //    console.log(this.state.userData.enrolledCourses);
     this.setState({
@@ -84,7 +84,7 @@ class CourseTracker extends React.Component {
   handleOnClickUpdate(event, id) {
     event.preventDefault();
     const modalCourseData = JSON.parse(JSON.stringify(this.state.userData.enrolledCourses[id]));
-//    console.log('in on click update');
+//    console.log("in on click update");
 //    console.log(modalCourseData);
     this.setState({
       doIShowModal: true,

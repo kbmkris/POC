@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddCourseForm Test Snapshot - component should render 1`] = `
+<div
+  className="main-div"
+>
+  <div
+    className="addcourse-div"
+  >
+    <h3>
+       Add Course Page 
+    </h3>
+    <form>
+      <label
+        className="label"
+        htmlFor="courseName"
+      >
+        Course Name :
+      </label>
+      <input
+        className="input"
+        name="courseName"
+        onChange={[MockFunction]}
+        type="text"
+        value=""
+      />
+      <br />
+      <div>
+        <div>
+          <label
+            className="label"
+            htmlFor="courseTitle"
+          >
+            Course Title 
+            1
+            :
+          </label>
+          <div>
+            <input
+              className="input"
+              name="courseTitle"
+              onChange={[Function]}
+              type="text"
+            />
+            <span>
+              <input
+                className="small-button"
+                name="addTitleButton"
+                onClick={[Function]}
+                type="button"
+                value=" + "
+              />
+            </span>
+            <span>
+              <input
+                className="small-button"
+                name="removeTitleButton"
+                onClick={[Function]}
+                type="button"
+                value=" - "
+              />
+            </span>
+          </div>
+        </div>
+        <div>
+          <label
+            className="label"
+            htmlFor="link"
+          >
+            Course Link 
+            1
+            :
+          </label>
+          <input
+            className="input"
+            name="link"
+            onChange={[Function]}
+            type="text"
+          />
+        </div>
+      </div>
+      <div
+        className="button-div"
+      >
+        <input
+          className="button"
+          name="addCourseButton"
+          onClick={[MockFunction]}
+          type="button"
+          value="Add Course"
+        />
+        <br />
+      </div>
+    </form>
+  </div>
+</div>
+`;
